@@ -1,0 +1,20 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.rsuser
+*.DotSettings.user
+
+## NuGet
+*.nupkg
+**/packages/
+nuget.config
+
+## Build artifacts
+artifacts/
+
+## OS
+.DS_Store
+Thumbs.db

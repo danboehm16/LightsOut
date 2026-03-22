@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Main game window.
+    The outer layout is fixed here; cell buttons are created dynamically in
+    code-behind so that the grid size can change at runtime.
+
+    Style keys are defined in Themes/ClassicTheme.xaml.  Replacing that file
+    with a different theme dictionary is the only change needed to restyle
+    the entire UI.
+-->
+<Window
+    x:Class="LightsOut.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Lights Out">
+
+    <Grid Style="{StaticResource MainGridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />   <!-- title bar   -->
+            <RowDefinition Height="Auto" />   <!-- controls    -->
+            <RowDefinition Height="*"    />   <!-- game area   -->
+            <RowDefinition Height="Auto" />   <!-- status bar  -->
+        </Grid.RowDefinitions>
+
+        <!-- ─── Title bar ─────────────────────────────────────────── -->
+        <Border Grid.Row="0" Style="{StaticResource TitleBarStyle}">
+            <TextBlock Text="LIGHTS OUT" Style="{StaticResource TitleTextStyle}" />
+        </Border>
+
+        <!-- ─── Controls ──────────────────────────────────────────── -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Style="{StaticResource ControlBarStyle}">
+
+            <TextBlock Text="Grid size:" Style="{StaticResource LabelStyle}" />
+
+            <ComboBox x:Name="GridSizeComboBox"
+                      Style="{StaticResource ClassicComboBoxStyle}"
+                      SelectionChanged="GridSizeComboBox_SelectionChanged">
+                <ComboBoxItem Content="3 × 3"  Tag="3" />
+                <ComboBoxItem Content="4 × 4"  Tag="4" />
+                <ComboBoxItem Content="5 × 5"  Tag="5" IsSelected="True" />
+                <ComboBoxItem Content="6 × 6"  Tag="6" />
+                <ComboBoxItem Content="7 × 7"  Tag="7" />
+                <ComboBoxItem Content="8 × 8"  Tag="8" />
+                <ComboBoxItem Content="10 × 10" Tag="10" />
+            </ComboBox>
+
+            <Button Content="New Game"
+                    Style="{StaticResource ClassicButtonStyle}"
+                    Click="NewGame_Click" />
+
+            <Button Content="Reset"
+                    Style="{StaticResource ClassicButtonStyle}"
+                    Click="Reset_Click" />
+        </StackPanel>
+
+        <!-- ─── Game area ─────────────────────────────────────────── -->
+        <!--
+            The inner Grid (GameGrid) is populated with Button cells in
+            code-behind.  A Grid-in-a-Grid is used so the cell area can
+            be padded without affecting the outer layout rows.
+        -->
+        <Border Grid.Row="2" Style="{StaticResource GameAreaStyle}">
+            <Grid x:Name="GameGrid"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+
+                <!-- Win overlay – collapsed until the player wins -->
+                <Border x:Name="WinOverlay"
+                        Background="{StaticResource WinOverlayBrush}"
+                        CornerRadius="6"
+                        Visibility="Collapsed"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <TextBlock Text="You Win! 🎉"
+                               Style="{StaticResource WinMessageStyle}" />
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ─── Status bar ────────────────────────────────────────── -->
+        <Border Grid.Row="3" Style="{StaticResource StatusBarStyle}">
+            <TextBlock x:Name="StatusText"
+                       Style="{StaticResource StatusTextStyle}"
+                       Text="Click a square to toggle its neighbours." />
+        </Border>
+    </Grid>
+</Window>
