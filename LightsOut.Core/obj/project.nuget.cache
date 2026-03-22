@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Zglr3xfiU5U=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/LightsOut/LightsOut/LightsOut.Core/LightsOut.Core.csproj",
+  "expectedPackageFiles": [
+    "/tmp/codeql-scratch-91f9562031399480/dbs/csharp/working/packages/microsoft.netcore.app.ref/8.0.23/microsoft.netcore.app.ref.8.0.23.nupkg.sha512",
+    "/tmp/codeql-scratch-91f9562031399480/dbs/csharp/working/packages/microsoft.aspnetcore.app.ref/8.0.23/microsoft.aspnetcore.app.ref.8.0.23.nupkg.sha512"
+  ],
+  "logs": []
+}

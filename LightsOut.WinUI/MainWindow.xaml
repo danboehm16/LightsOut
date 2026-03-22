@@ -1,0 +1,38 @@
+<Window
+    x:Class="LightsOut.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Lights Out">
+    <Grid Background="{StaticResource WindowBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title bar -->
+        <Border Grid.Row="0" Background="{StaticResource TitleBarBrush}" Padding="12,8">
+            <TextBlock Text="Lights Out"
+                       Style="{StaticResource TitleTextStyle}"/>
+        </Border>
+
+        <!-- Game board -->
+        <Grid x:Name="BoardGrid"
+              Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Margin="20"/>
+
+        <!-- Controls -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,8,0,16"
+                    Spacing="12">
+            <Button x:Name="NewGameButton"
+                    Content="New Game"
+                    Style="{StaticResource ClassicButtonStyle}"
+                    Click="NewGameButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

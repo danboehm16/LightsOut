@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LightsOut.WinUI (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
