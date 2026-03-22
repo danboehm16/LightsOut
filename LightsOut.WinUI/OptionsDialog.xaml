@@ -1,0 +1,154 @@
+<ContentDialog
+    x:Class="LightsOut.WinUI.OptionsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Options"
+    PrimaryButtonText="Apply"
+    CloseButtonText="Cancel"
+    DefaultButton="Primary"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20" MinWidth="380" Padding="0,8">
+
+            <!-- ── Grid Size ── -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Grid Size" FontWeight="SemiBold" FontSize="14"/>
+                <ComboBox x:Name="GridSizeCombo"
+                          SelectionChanged="GridSizeCombo_SelectionChanged"
+                          HorizontalAlignment="Left" Width="180">
+                    <ComboBoxItem Content="3 × 3"   Tag="3"/>
+                    <ComboBoxItem Content="4 × 4"   Tag="4"/>
+                    <ComboBoxItem Content="5 × 5"   Tag="5"/>
+                    <ComboBoxItem Content="7 × 7"   Tag="7"/>
+                    <ComboBoxItem Content="10 × 10" Tag="10"/>
+                    <ComboBoxItem Content="Custom…" Tag="0"/>
+                </ComboBox>
+
+                <!-- Custom rows / cols (shown when "Custom" is selected) -->
+                <StackPanel x:Name="CustomSizePanel"
+                            Orientation="Horizontal" Spacing="16"
+                            Visibility="Collapsed">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Rows"/>
+                        <NumberBox x:Name="RowsBox"
+                                   Value="5" Minimum="2" Maximum="20"
+                                   SpinButtonPlacementMode="Compact"
+                                   Width="110"/>
+                    </StackPanel>
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="Columns"/>
+                        <NumberBox x:Name="ColsBox"
+                                   Value="5" Minimum="2" Maximum="20"
+                                   SpinButtonPlacementMode="Compact"
+                                   Width="110"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ── Theme ── -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="Theme" FontWeight="SemiBold" FontSize="14"/>
+                <RadioButtons x:Name="ThemeModeGroup"
+                              SelectionChanged="ThemeModeGroup_SelectionChanged">
+                    <RadioButton Content="Classic"       Tag="Classic"/>
+                    <RadioButton Content="Custom Colors" Tag="CustomColors"/>
+                    <RadioButton Content="Image"         Tag="Image"/>
+                </RadioButtons>
+            </StackPanel>
+
+            <!-- ── Custom Colors (shown when "Custom Colors" is selected) ── -->
+            <StackPanel x:Name="CustomColorsPanel" Spacing="10" Visibility="Collapsed">
+                <TextBlock Text="Cell Colors" FontWeight="SemiBold" FontSize="14"/>
+
+                <!-- ON color row -->
+                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="Light ON color:" VerticalAlignment="Center" Width="115"/>
+                    <TextBox x:Name="OnColorBox" Width="100"
+                             TextChanged="OnColorBox_TextChanged"
+                             PlaceholderText="#FFD700"/>
+                    <Border x:Name="OnColorSwatch"
+                            Width="30" Height="30" CornerRadius="4"
+                            BorderThickness="1" BorderBrush="Gray"/>
+                    <Button Content="Pick…">
+                        <Button.Flyout>
+                            <Flyout Opening="OnColorFlyout_Opening" Placement="Bottom">
+                                <ColorPicker x:Name="OnColorPicker"
+                                             ColorChanged="OnColorPicker_ColorChanged"
+                                             IsAlphaEnabled="False"
+                                             IsHexInputVisible="True"/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+
+                <!-- OFF color row -->
+                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                    <TextBlock Text="Light OFF color:" VerticalAlignment="Center" Width="115"/>
+                    <TextBox x:Name="OffColorBox" Width="100"
+                             TextChanged="OffColorBox_TextChanged"
+                             PlaceholderText="#3A3A3A"/>
+                    <Border x:Name="OffColorSwatch"
+                            Width="30" Height="30" CornerRadius="4"
+                            BorderThickness="1" BorderBrush="Gray"/>
+                    <Button Content="Pick…">
+                        <Button.Flyout>
+                            <Flyout Opening="OffColorFlyout_Opening" Placement="Bottom">
+                                <ColorPicker x:Name="OffColorPicker"
+                                             ColorChanged="OffColorPicker_ColorChanged"
+                                             IsAlphaEnabled="False"
+                                             IsHexInputVisible="True"/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ── Image (shown when "Image" is selected) ── -->
+            <StackPanel x:Name="ImagePanel" Spacing="8" Visibility="Collapsed">
+                <TextBlock Text="Background Image" FontWeight="SemiBold" FontSize="14"/>
+                <TextBlock Text="When a cell is ON the image is hidden; when OFF the image shows through."
+                           TextWrapping="Wrap" Opacity="0.7" FontSize="12"/>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="ImagePathBox"
+                             IsReadOnly="True"
+                             PlaceholderText="No image selected"
+                             Width="250"/>
+                    <Button Content="Browse…" Click="BrowseImage_Click"/>
+                    <Button Content="Clear"   Click="ClearImage_Click"/>
+                </StackPanel>
+
+                <!-- ON color for image mode -->
+                <StackPanel Spacing="4">
+                    <TextBlock Text="Light ON color (covers image):" FontSize="12"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <TextBox x:Name="ImageOnColorBox" Width="100"
+                                 TextChanged="ImageOnColorBox_TextChanged"
+                                 PlaceholderText="#FFD700"/>
+                        <Border x:Name="ImageOnColorSwatch"
+                                Width="30" Height="30" CornerRadius="4"
+                                BorderThickness="1" BorderBrush="Gray"/>
+                        <Button Content="Pick…">
+                            <Button.Flyout>
+                                <Flyout Opening="ImageOnColorFlyout_Opening" Placement="Bottom">
+                                    <ColorPicker x:Name="ImageOnColorPicker"
+                                                 ColorChanged="ImageOnColorPicker_ColorChanged"
+                                                 IsAlphaEnabled="False"
+                                                 IsHexInputVisible="True"/>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+
+                <Image x:Name="ImagePreview"
+                       MaxHeight="150" MaxWidth="300"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Left"
+                       Visibility="Collapsed"/>
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

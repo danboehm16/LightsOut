@@ -33,6 +33,10 @@
                     Content="New Game"
                     Style="{StaticResource ClassicButtonStyle}"
                     Click="NewGameButton_Click"/>
+            <Button x:Name="OptionsButton"
+                    Content="Options"
+                    Style="{StaticResource ClassicButtonStyle}"
+                    Click="OptionsButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
