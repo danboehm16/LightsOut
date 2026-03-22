@@ -32,6 +32,7 @@ public class GameBoard : IGameBoard
         Toggle(row + 1, col);
         Toggle(row, col - 1);
         Toggle(row, col + 1);
+        Toggle(row, col);
     }
 
     public bool IsSolved
